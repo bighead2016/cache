@@ -93,3 +93,8 @@ filterKeyTuples(Id,Key,KeyTupleList,KeyFields) ->
 					lists:filter(Fun,KeyTupleList)
 			end
 	end.
+
+unixtime() ->
+    {M, S, _} = erlang:now(),
+    M * 1000000 + S.
+    

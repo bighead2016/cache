@@ -32,16 +32,16 @@ init([]) ->
 
 
 log_update(Tab) ->
-	gen_server:cast(?MODULE,{log_update,Tab,util:unixtime()}).
+	gen_server:cast(?MODULE,{log_update,Tab,cache_util:unixtime()}).
 
 log_insert(Tab) ->
-	gen_server:cast(?MODULE,{log_insert,Tab,util:unixtime()}).
+	gen_server:cast(?MODULE,{log_insert,Tab,cache_util:unixtime()}).
 
 log_select(Tab) ->
-	gen_server:cast(?MODULE,{log_select,Tab,util:unixtime()}).
+	gen_server:cast(?MODULE,{log_select,Tab,cache_util:unixtime()}).
 
 log_delete(Tab) ->
-	gen_server:cast(?MODULE,{log_delete,Tab,util:unixtime()}).
+	gen_server:cast(?MODULE,{log_delete,Tab,cache_util:unixtime()}).
 
 
 handle_cast({log_update,Tab,Time},State) ->
