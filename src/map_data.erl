@@ -88,7 +88,8 @@ map(economy) ->
         fields          = record_info(fields, economy),
         key_fields      = [account_id],
         term_fields     = []
-    };
+    }.
+
 
 
 
