@@ -196,12 +196,12 @@ terminate(_Reason,State) ->
 	ok.
 
 rand_gc_time(State) ->
-	NowTime = util:unixtime(),
+	NowTime = cache_util:unixtime(),
 	Seed = {erlang:phash2(erlang:phash2(State#db_state.tab)+NowTime), erlang:phash2(erlang:phash2(State#db_state.ets)+NowTime), 
 			erlang:phash2(erlang:phash2(State#db_state.update_ets)+NowTime)},
 	random:seed(Seed),
 	RandTime = random:uniform(?GC_RAND_INTER_TIME),
-	?DBG(cache, "NowTime = ~p, RandTime=~p, Tab=~p, Seed = ~p", [util:unixtime(), RandTime, State#db_state.ets, Seed]),
+	?DBG(cache, "NowTime = ~p, RandTime=~p, Tab=~p, Seed = ~p", [cache_util:unixtime(), RandTime, State#db_state.ets, Seed]),
 	RandTime + ?GC_BASE_INTER_TIME.
 
 merge_update_info(_,none,Record) ->

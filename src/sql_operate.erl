@@ -15,7 +15,7 @@
 
 
 test_init(Num) ->
-	Index = (util:unixtime() rem 10000) * 1000,
+	Index = (cache_util:unixtime() rem 10000) * 1000,
 	Fun = fun(Id) ->
 		erlang:spawn(?MODULE,init_create,[Id])
 	end,
@@ -23,14 +23,14 @@ test_init(Num) ->
 
 
 test_get(Num) ->
-	Index = (util:unixtime() rem 10000) * 1000,
+	Index = (cache_util:unixtime() rem 10000) * 1000,
 	Fun = fun(Id) ->
 		erlang:spawn(?MODULE,init_get,[Id])
 	end,
 	lists:map(Fun,lists:seq(Index,Index+Num-1)).
 
 test(Num) ->
-	Index = (util:unixtime() rem 10000) * 1000,
+	Index = (cache_util:unixtime() rem 10000) * 1000,
 	Fun = fun(Id) ->
 		erlang:spawn(?MODULE,init_create,[Id])
 	end,
@@ -124,9 +124,9 @@ init_get(AccountID) ->
 		end
 	end,
 	{STabs,Content} = lists:foldl(Fun,{[],""},Tabs),
-	Now1 = util:unixtime(),
+	Now1 = cache_util:unixtime(),
 	Results = emysql:execute(mgserver_db_pool,Content),
-	Now2 = util:unixtime(),
+	Now2 = cache_util:unixtime(),
 	?ERR(sql_operate,"init get sql time = ~w",[Now2 - Now1]),
 	init_get_helper(AccountID,Results,STabs).
 	
@@ -198,10 +198,10 @@ init_create(AccountID,Records) ->
 	Content2 = lists:foldl(Fun2,"",Records),
 	Content = Content1++Content2,
 	% ?ERR(sql_operate,Content2),
-	Now1 = util:unixtime(),
+	Now1 = cache_util:unixtime(),
 	case emysql:execute(mgserver_db_pool,Content) of
 		ResultList when is_list(ResultList) ->
-			Now2 = util:unixtime(),
+			Now2 = cache_util:unixtime(),
 			FunE = fun(Result) ->
 				case Result of
 					{error_packet,N,_,_,Msg} ->
@@ -212,7 +212,7 @@ init_create(AccountID,Records) ->
 			end,
 			lists:map(FunE,ResultList);
 		Res ->
-			Now2 = util:unixtime(),
+			Now2 = cache_util:unixtime(),
 			?ERR(sql_operate,"init sql err:~w",[Res])
 	end,
 	?ERR(sql_operate,"init create sql time = ~w",[Now2 - Now1]).

@@ -69,7 +69,7 @@ init([]) ->
     {ok, #state{}}.
 
 handle_cast({set_flag,FirstKey},State) ->
-	Now = util:unixtime(),
+	Now = cache_util:unixtime(),
 	case lists:keyfind(FirstKey,1,State#state.gc_list) of
 		false ->
 			NewState = State#state{gc_list = State#state.gc_list++[{FirstKey,Now}]};
@@ -101,7 +101,7 @@ handle_call({unset_flag,FirstKey},_From,State) ->
 
 
 handle_info(gc,State) ->
-	Now = util:unixtime(),
+	Now = cache_util:unixtime(),
 	Fun = fun({Key,Time},UnGcList) ->
 		case Now - Time > ?DB_UPDATE_INTERVAL/1000 + 20*60 andalso cache_gc_util:gc_check(Key) == true of
 			true ->
