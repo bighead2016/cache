@@ -1,0 +1,16 @@
+%% Copyright (c) 2013, LaoJiaJie <laojiajie@gmail.com>
+%% 
+{application, cache, [
+	{id, "Cache"},
+	{description, "Cache Server for Erlang and OTP in action."},
+	{sub_description, "Reusable library for building cache applications."},
+	{vsn, "d8406"},
+	{modules, [cache_app,
+			   cache_sup,
+			   cache_db]},
+	{registered, [cache_sup, cache_db]},
+	{applications, [kernel,stdlib]},
+	{mod, {cache_app, []}},
+	{env, []}
+]}.
+
