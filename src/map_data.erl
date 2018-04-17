@@ -3,40 +3,11 @@
 -module(map_data).
 
 -include("cache.hrl").
--include("friend.hrl").
--include("rank.hrl").
 -include("role.hrl").
 -include("account.hrl").
 -include("item.hrl").
--include("counter.hrl").
--include("system.hrl").
 -include("economy.hrl").
--include("cd.hrl").
--include("mail.hrl").
--include("town.hrl").
--include("guild.hrl").
--include("chat.hrl").
--include("myst_shop.hrl").
--include("activity.hrl").
--include("jyukai.hrl").
--include("picture.hrl").
--include("achieve.hrl").
--include("battle.hrl").
--include("dun.hrl").
--include("recharge.hrl").
--include("appstore.hrl").
--include("award.hrl").
--include("arena.hrl").
--include("vip.hrl").
--include("task.hrl").
--include("guide.hrl").
--include("clockin.hrl").
--include("shop.hrl").
--include("bulletin.hrl").
--include("invite_code.hrl").
--include("question.hrl").
--include("mercenary.hrl").
--include("guild_dun.hrl").
+
 
 -export([tabs/0, map/1, cache_opt/1,not_init_tab/0,init_sql/0]). 
 
@@ -73,114 +44,8 @@ init_sql() ->
   .
 
 tabs() -> 
-	[ 
-    rank,
-    role,
-    counter,
-    counter_activity,
-    per_counter,
-    list_counter,
-    account,
-    system,
-    system_list,
-    role_call,
-    cd,
-    item,
-    economy,
-    mail,
-    sys_mail,
-    town,
-    town_obj,
-    town_monster,
-    town_award_box,
-    friend,
-    friend_apply,
-    guild,
-    guild_application,
-    guild_member,
-    private_chat,
-    private_chat_counter,
-    guild_chat,
-    guild_chat_counter,
-    world_chat,
-    world_chat_counter,
-    myst_shop,
-    activity,
-    activity_last,
-    activity_login,
-    activity_daily,
-    activity_tl_manytimes_recharge,
-    activity_tl_tot_recharge,
-    activity_tl_tot_recharge_cfg,
-    activity_tl_tot_recharge_2,
-    activity_tl_tot_recharge_2_cfg,
-    activity_tl_single_recharge,
-    activity_tl_single_recharge_cfg,
-    activity_tl_tot_consume,
-    activity_tl_tot_consume_cfg,
-    activity_tl_tot_consume_2,
-    activity_tl_tot_consume_2_cfg,
-    activity_tl_tot_recharge_daily,
-    activity_tl_tot_recharge_daily_cfg,
-    activity_tl_tot_recharge_daily_2,
-    activity_tl_tot_recharge_daily_2_cfg,
-    activity_tl_tot_consume_daily,
-    activity_tl_tot_consume_daily_cfg,
-    activity_tl_tot_consume_daily_2,
-    activity_tl_tot_consume_daily_2_cfg,
-    activity_tl_diamond_call_role_cfg,
-    activity_tl_login,
-    activity_tl_login_cfg,
-    activity_tl_con_login,
-    activity_tl_con_login_cfg,
-    activity_tl_recharge_diamond_rank_cfg,
-    activity_tl_consume_diamond_rank_cfg,
-    activity_tl_cross_recharge_diamond_rank_cfg,
-    activity_tl_cross_consume_diamond_rank_cfg,
-    activity_tl_cross_daily_recharge_diamond_rank_cfg,
-    activity_tl_cross_daily_consume_diamond_rank_cfg, 
-    activity_tl_invest,
-    activity_tl_new_server,
-    jyukai,
-    picture,
-    picture_head,
-    achieve,
-    battle_heros,
-    dun,
-    dun_reward,
-    role_train,
-    role_train_potion,
-    battle,
-    rand_dun,
-    dun_trial_tower,
-    role_potential,
-    recharge_info,
-    appstore_order,
-    award_login,
-    arena,
-    % arena_rank,
-    vip,
-    vip_privilege,
-    vip_month_card,
-    guild_invitation,
-    guild_event,
-    dun_dark_tower,
-    task,
-    task_branch,
-    task_reward,
-    guide,
-    guild_building,
-    clockin,
-    shop,
-    bulletin,
-    invite_code,
-    sevenday,
-    fb_invite_friends,
-    question,
-    award_growup,
-    mercenary,
-    hired_mercenary,
-    guild_dun
+    [ 
+    account,role,item,economy
         ].
 
 
@@ -350,70 +215,70 @@ map(town_award_box) ->
 
 
 map(guild) ->
-	#map{
-		 fields			= record_info(fields, guild),
-		 key_fields		= [id],
-		 string_fields 	= [name,notice],
-		 ignored_fields = [members]
-	};
+    #map{
+         fields         = record_info(fields, guild),
+         key_fields     = [id],
+         string_fields  = [name,notice],
+         ignored_fields = [members]
+    };
 
 map(guild_application) ->
-	#map{
-		 fields			= record_info(fields,guild_application),
-		 key_fields		= [guild_id,account_id]		 
-	};
+    #map{
+         fields         = record_info(fields,guild_application),
+         key_fields     = [guild_id,account_id]      
+    };
 
 map(guild_member) ->
-	#map{
-		 fields			= record_info(fields, guild_member),
-		 key_fields		= [account_id]
-	};
+    #map{
+         fields         = record_info(fields, guild_member),
+         key_fields     = [account_id]
+    };
 
 map(private_chat) ->
-	#map{
-		 fields			= record_info(fields, private_chat),
-		 key_fields		= [account_smaller, account_larger, counter],
-		 string_fields	= [content]
-	};
+    #map{
+         fields         = record_info(fields, private_chat),
+         key_fields     = [account_smaller, account_larger, counter],
+         string_fields  = [content]
+    };
 
 map(private_chat_counter) ->
-	#map{
-		 fields			= record_info(fields, private_chat_counter),
-		 key_fields		= [account_smaller, account_larger]
-	};
+    #map{
+         fields         = record_info(fields, private_chat_counter),
+         key_fields     = [account_smaller, account_larger]
+    };
 
 map(guild_chat) ->
-	#map{
-		 fields			= record_info(fields, guild_chat),
-		 key_fields		= [guild_id, counter],
-		 string_fields	= [content]
-	};
+    #map{
+         fields         = record_info(fields, guild_chat),
+         key_fields     = [guild_id, counter],
+         string_fields  = [content]
+    };
 
 map(guild_chat_counter) ->
-	#map{
-		 fields			= record_info(fields, guild_chat_counter),
-		 key_fields		= [guild_id]
-	};
+    #map{
+         fields         = record_info(fields, guild_chat_counter),
+         key_fields     = [guild_id]
+    };
 
 map(world_chat) ->
-	#map{
-		 fields			= record_info(fields, world_chat),
-		 key_fields		= [world_id, counter],
-		 string_fields	= [content]
-	};
+    #map{
+         fields         = record_info(fields, world_chat),
+         key_fields     = [world_id, counter],
+         string_fields  = [content]
+    };
 
 map(world_chat_counter) ->
-	#map{
-		 fields			= record_info(fields, world_chat_counter),
-		 key_fields		= [world_id]
-	};
+    #map{
+         fields         = record_info(fields, world_chat_counter),
+         key_fields     = [world_id]
+    };
 
 map(myst_shop) ->
-	#map{
-		 fields			= record_info(fields, myst_shop),
+    #map{
+         fields         = record_info(fields, myst_shop),
      term_fields = [items,vip_items],
-		 key_fields		= [account_id]
-	};
+         key_fields     = [account_id]
+    };
 
 map(activity) ->
     #map{
