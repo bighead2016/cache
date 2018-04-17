@@ -1,6 +1,5 @@
 -ifndef(__LOG_HRL__).
 -define(__LOG_HRL__, true).
--define(__LOG_DEBUG__, false).
 
 -ifdef(__LOG_DEBUG__).
 
